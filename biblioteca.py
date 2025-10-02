@@ -9,11 +9,14 @@ def carica_da_file(file_path):
                 lista_libri = riga.rstrip().split(",")
                 biblioteca.append(lista_libri)
             biblioteca.pop(0)
+            for lista in biblioteca:
+                lista[2] = int(lista[2])
+                lista[3] = int(lista[3])
+                lista[4] = int(lista[4])
 
             return biblioteca
     except FileNotFoundError:
         return None
-
 
 
 
@@ -128,6 +131,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-#MODIFICA DI PROVA
-# SECONDA MODIFICA DI PROVA
