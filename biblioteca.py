@@ -4,8 +4,15 @@ def carica_da_file(file_path):
     try:
         biblioteca = []
         with open(file_path, "r") as bibliotecaFile:
-            lista = bibliotecaFile.rstrip().split(",")
 
+            for riga in bibliotecaFile:
+                lista_libri = riga.rstrip().split(",")
+                biblioteca.append(lista_libri)
+            biblioteca.pop(0)
+
+            return biblioteca
+    except FileNotFoundError:
+        return None
 
 
 
@@ -13,12 +20,29 @@ def carica_da_file(file_path):
 def aggiungi_libro(biblioteca, titolo, autore, anno, pagine, sezione, file_path):
     """Aggiunge un libro nella biblioteca"""
     # TODO
+    libro_presente = False
+    for i in biblioteca:
+        if titolo == i[0]:
+            libro_presente = True
+    if libro_presente or sezione < 1 or sezione >5:
+        return None
+    else:
+        try:
+            with open(file_path, "a") as bibliotecaFile:
+                lista = [titolo, autore, anno, pagine, sezione]
+                biblioteca.append(lista)
+                risultato = f"{titolo},{autore},{anno},{pagine},{sezione}"
+                bibliotecaFile.write(f"{risultato}\n")
+
+                return risultato
+        except FileNotFoundError:
+            return None
+
 
 
 def cerca_libro(biblioteca, titolo):
     """Cerca un libro nella biblioteca dato il titolo"""
     # TODO
-
 
 def elenco_libri_sezione_per_titolo(biblioteca, sezione):
     """Ordina i titoli di una data sezione della biblioteca in ordine alfabetico"""
