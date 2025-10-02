@@ -34,10 +34,10 @@ def aggiungi_libro(biblioteca, titolo, autore, anno, pagine, sezione, file_path)
             with open(file_path, "a") as bibliotecaFile:
                 lista = [titolo, autore, anno, pagine, sezione]
                 biblioteca.append(lista)
-                risultato = f"{titolo},{autore},{anno},{pagine},{sezione}"
-                bibliotecaFile.write(f"{risultato}\n")
+                libro = f"{titolo},{autore},{anno},{pagine},{sezione}"
+                bibliotecaFile.write(f"{libro}\n")
 
-                return risultato
+                return libro
         except FileNotFoundError:
             return None
 
@@ -46,10 +46,27 @@ def aggiungi_libro(biblioteca, titolo, autore, anno, pagine, sezione, file_path)
 def cerca_libro(biblioteca, titolo):
     """Cerca un libro nella biblioteca dato il titolo"""
     # TODO
+    for i in biblioteca:
+        if titolo == i[0]:
+            risultato = f"{i[0]},{i[1]},{i[2]},{i[3]},{i[4]}"
+            return risultato
+    return None
+
+
 
 def elenco_libri_sezione_per_titolo(biblioteca, sezione):
     """Ordina i titoli di una data sezione della biblioteca in ordine alfabetico"""
     # TODO
+    if sezione < 1 or sezione >5:
+        return None
+
+    lista_titoli = []
+    for lista in biblioteca:
+        if lista[4] == sezione:
+            lista_titoli.append(lista[0])
+
+    return sorted(lista_titoli)
+
 
 
 def main():
